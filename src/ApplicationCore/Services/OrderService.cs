@@ -66,6 +66,18 @@ public class OrderService : IOrderService
         var payload = new
         {
             orderId = order.Id,
+
+            finalPrice = items.Sum(i => i.UnitPrice * i.Units),
+
+            shippingAddress = new
+            {
+                street = shippingAddress.Street,
+                city = shippingAddress.City,
+                state = shippingAddress.State,
+                country = shippingAddress.Country,
+                zipCode = shippingAddress.ZipCode
+            },
+
             items = basket.Items.Select(i => new
             {
                 itemId = i.CatalogItemId,
